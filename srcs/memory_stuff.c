@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:03:25 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/06 17:52:52 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/07 17:54:00 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,17 @@ int	check_fd_error(int fd)
 void	error_manager(int errno)
 {
 	if (errno == 2)
-		ft_printf("Error opening file_input");
+		ft_printf("Error opening file_input\n");
 }
 
-// void	pipes_error_manager(int errno, int *pipes[], int i)
-// {
-// 	if (errno == 1)
-// 	{
-// 		ft_printf("Error (1) creating pipes\n");
-// 		close_fd(pipes, i);
-// 	}
-// 	else if (errno == 2)
-// 	{
-// 		ft_printf("Error (2) creating processes\n");
-// 		close_fd(pipes, i);
-// 	}
-// 	exit(1);
-// }
-
-void	close_fd(int *pipes[], int i)
+void	closing_pipes(t_pipe *data)
 {
-	int	j;
-
-	j = 0;
-	while (j < i)
-	{
-		close(pipes[j][0]);
-		close(pipes[j][1]);
-	}
+	close(data->pipe[0]);
+	close(data->pipe[1]);
 }
 
-void	waiting_childs_finishing(int pid_1, int pid_2)
+void	waiting_childs_finishing(t_pipe *data)
 {
-	waitpid(pid_1, NULL, 0);
-	waitpid(pid_2, NULL, 0);
+	waitpid(data->sending_child, NULL, 0);
+	waitpid(data->receiving_child, NULL, 0);
 }
