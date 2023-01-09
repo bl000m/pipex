@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/07 17:53:38 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/09 12:43:20 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include "libft.h"
+# include "errno.h"
+# include "string.h"
 
 # define PROCESS_N 2
 
 typedef struct s_pipe
 {
+	int		argc;
 	int		file_in;
 	int		file_out;
 	char	*path;
@@ -36,7 +39,7 @@ typedef struct s_pipe
 }	t_pipe;
 
 /* settings */
-t_pipe	*init_data(void);
+t_pipe	*init_data(int argc);
 
 /* parsing */
 void	opening_files(t_pipe *data, char *argv[]);
@@ -55,7 +58,7 @@ void	waiting_childs_finishing(t_pipe *data);
 void	close_fd(int *pipes[], int i);
 
 /* checking for error */
-void	error_manager(int errno);
+void	error_manager(int error);
 int		check_fd_error(int fd);
 void	check_error(int argc);
 
