@@ -6,12 +6,11 @@
 #    By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 14:44:01 by mpagani           #+#    #+#              #
-#    Updated: 2023/01/10 17:08:04 by mpagani          ###   ########lyon.fr    #
+#    Updated: 2023/01/11 11:41:05 by mpagani          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= pipex
-# NAME_BONUS 	= pipex_bonus
 
 # mandatory srcs / obj files
 SRCS 		= main.c \
@@ -31,7 +30,7 @@ BONUS_SRCS	= main_bonus.c \
 			communicating_bonus.c \
 			settings_bonus.c \
 			error_management_bonus.c \
-			utils_bonus.c
+			utils_bonus.c here_doc.c
 
 OBJS_BONUS	= $(BONUS_SRCS:%.c=$(OBJ_BON_DIR)/%.o)
 

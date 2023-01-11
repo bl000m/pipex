@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 17:36:46 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 12:09:17 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 typedef struct s_pipe
 {
 	int		argc;
+	int		n_cmd;
+	int		pos;
 	int		file_in;
 	int		file_out;
 	char	*path;
@@ -35,18 +37,21 @@ typedef struct s_pipe
 	char	*dir_command;
 	pid_t	sending_child;
 	pid_t	receiving_child;
-	int		pos;
+	pid_t	here_doc_child;
 	int		pipe[2];
+	int		here_pipe[2];
 }	t_pipe;
 
 /* settings */
 t_pipe	*init_data(int argc);
 
 /* parsing */
-void	opening_files(t_pipe *data, char *argv[]);
+void	opening_files(t_pipe *data, char *argv[], char flag);
 void	parsing_environment(t_pipe *data, char *envp[], char *argv[]);
 char	*searching_path(char *envp[]);
 char	*find_dir_command(t_pipe *data);
+void	here_doc(int argc, char *argv[], t_pipe *data);
+void	getting_and_sending_input(char *limiter, t_pipe *data);
 
 /* communicating */
 void	communicating(t_pipe *data, char *argv[], char *envp[]);

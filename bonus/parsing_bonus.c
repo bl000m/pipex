@@ -6,24 +6,33 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:54:22 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 17:01:29 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 11:40:42 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
 //to verify if file_out is to be closed if !file_in
-void	opening_files(t_pipe *data, char *argv[])
+void	opening_files(t_pipe *data, char *argv[], char flag)
 {
-	data->file_in = open(argv[1], O_RDONLY);
-	if (data->file_in == -1 || read(data->file_in, 0, 0) < 0)
+	if (flag == 'h')
 	{
-		ft_printf("INPUT ERROR: %s => %s\n", strerror(errno), argv[1]);
-		data->file_in = 0;
+		data->file_out = open(argv[4], O_CREAT| O_RDWR | O_APPEND | O_CLOEXEC, 0000644);
+		if (data->file_out == -1 || read(data->file_out, 0, 0) < 0)
+			error_manager(5, argv, data);
 	}
-	data->file_out = open(argv[4], O_CREAT| O_RDWR | O_TRUNC, 0000644);
-	if (data->file_out == -1 || read(data->file_out, 0, 0) < 0)
-		error_manager(5, argv, data);
+	else
+	{
+		data->file_in = open(argv[1], O_RDONLY);
+		if (data->file_in == -1 || read(data->file_in, 0, 0) < 0)
+		{
+			ft_printf("INPUT ERROR: %s => %s\n", strerror(errno), argv[1]);
+			data->file_in = 0;
+		}
+		data->file_out = open(argv[data->argc - 1], O_CREAT| O_RDWR | O_TRUNC, 0000644);
+		if (data->file_out == -1 || read(data->file_out, 0, 0) < 0)
+			error_manager(5, argv, data);
+	}
 }
 
 void	parsing_environment(t_pipe *data, char *envp[], char *argv[])

@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:43:22 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 17:11:52 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 10:49:53 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ t_pipe	*init_data(int argc)
 		exit(1);
 	}
 	data->argc = argc;
+	data->n_cmd = argc - 3;
 	return (data);
 }

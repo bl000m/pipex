@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 11:13:53 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 17:51:19 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 11:51:27 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	communicating(t_pipe *data, char *argv[], char *envp[])
 {
+	int	pipes[data->n_cmd - 1][2];
 
 	creating_pipe(data, argv);
 	data->pos = 2;
@@ -26,7 +27,7 @@ void	communicating(t_pipe *data, char *argv[], char *envp[])
 	}
 	while (data->pos < data->argc - 1)
 	{
-		creating_receiving_child(argv, data, 7);
+		creating_receiving_child(argv, data, 2);
 		if (data->receiving_child == 0)
 			receiving_process(data, argv, envp);
 		data->pos++;

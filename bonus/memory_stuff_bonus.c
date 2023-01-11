@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:03:25 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 12:23:18 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 12:10:44 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	closing_input_output(t_pipe *data, char c)
 	{
 		close(data->pipe[0]);
 		close(data->pipe[1]);
+	}
+	if (c == 'h')
+	{
+		close(data->here_pipe[0]);
+		close(data->here_pipe[1]);
 	}
 	if (c == 's' || c == 'p')
 		close(data->file_in);
