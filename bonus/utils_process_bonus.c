@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.c                                         :+:      :+:    :+:   */
+/*   utils_process_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 17:43:22 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/09 18:07:54 by mpagani          ###   ########lyon.fr   */
+/*   Created: 2023/01/10 17:12:19 by mpagani           #+#    #+#             */
+/*   Updated: 2023/01/10 17:13:28 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex_bonus.h"
 
-t_pipe	*init_data(int argc)
+void	creating_pipes(int *pipes)
 {
-	t_pipe *data;
+	int	i;
 
-	data = malloc(sizeof(*data));
-	if (!data)
+	i = 0;
+	while (i < PROCESS_N + 1)
 	{
-		ft_printf("ERROR ALLOCATING DATA: %s\n", strerror(errno));
-		exit(1);
+		if (pipe(&pipes[i]) == -1)
+			pipes_error_manager(1, &pipes, i);
+		ft_printf("pipe %d created\n", i);
+		i++;
 	}
-	data->argc = argc;
-	return (data);
+}
+
+void	creating_processes(int *pids, int *pipes)
+{
+	int	i;
+
+	i = 0;
+	while (i < PROCESS_N)
+	{
+		pids[i] = fork();
+		if (pids[i] < 0)
+			pipes_error_manager(2, &pipes, i);
+		i++;
+	}
 }

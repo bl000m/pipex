@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_stuff.c                                     :+:      :+:    :+:   */
+/*   memory_stuff_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:03:25 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 11:27:24 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/10 12:23:18 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex_bonus.h"
 
 // s == sending || r == receiving || p == parent
 void	closing_input_output(t_pipe *data, char c)

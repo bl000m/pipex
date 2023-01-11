@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 17:31:08 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/10 17:36:46 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-# include "libft.h"
+# include "../libft/libft.h"
 # include "errno.h"
 # include "string.h"
 
@@ -35,6 +35,7 @@ typedef struct s_pipe
 	char	*dir_command;
 	pid_t	sending_child;
 	pid_t	receiving_child;
+	int		pos;
 	int		pipe[2];
 }	t_pipe;
 
@@ -62,7 +63,6 @@ void	executing_command(t_pipe *data, char *envp[], char *argv[]);
 
 /* error management */
 void	error_manager(int error, char *argv[], t_pipe *data);
-void	check_error(int argc);
 
 /* memory stuff */
 void	closing_input_output(t_pipe *data, char c);
