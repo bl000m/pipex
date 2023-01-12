@@ -6,23 +6,36 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:38:14 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 17:01:51 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 17:52:41 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-void	switching_input_output(t_pipe *data, char c)
+void	switching_input_output(t_pipe *data, char flag)
 {
-	if (c == 's')
+	if (flag == 's')
 	{
-		dup2(data->pipe[1], STDOUT_FILENO);
-		dup2(data->file_in, STDIN_FILENO);
+		if (dup2(data->pipe[1], STDOUT_FILENO) < 1)
+			ft_printf("ERROR in switching fd in sending OUT\n");
+		if (dup2(data->file_in, STDIN_FILENO) < 0)
+			ft_printf("ERROR in switching fd in sending IN\n");
 	}
-	if (c == 'r')
+	if (flag == 'r')
 	{
-		dup2(data->pipe[0], STDIN_FILENO);
-		dup2(data->file_out, STDOUT_FILENO);
+		if (dup2(data->pipe[0], STDIN_FILENO) < 0)
+			ft_printf("ERROR in switching fd in receiving\n");
+		if (dup2(data->file_out, STDOUT_FILENO) < 0)
+			ft_printf("ERROR in switching fd in OUT receiving\n");
+	}
+	if (flag == 'm' || flag == 'n')
+	{
+		ft_printf("IN THE MULTIPLE SWITCHING\n");
+		ft_printf("data->pos = %d\n", data->pos);
+		if (dup2(data->pipe[0], STDIN_FILENO) < 0)
+			ft_printf("ERROR in switching fd in receiving\n");
+		if (dup2(data->pipe[1], STDOUT_FILENO) < 0)
+			ft_printf("ERROR in switching fd in receiving\n");
 	}
 }
 

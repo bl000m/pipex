@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/11 12:09:17 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 17:40:54 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_pipe
 	pid_t	receiving_child;
 	pid_t	here_doc_child;
 	int		pipe[2];
-	int		here_pipe[2];
+	int		*pipes[];
 }	t_pipe;
 
 /* settings */
@@ -56,6 +56,7 @@ void	getting_and_sending_input(char *limiter, t_pipe *data);
 /* communicating */
 void	communicating(t_pipe *data, char *argv[], char *envp[]);
 void	creating_pipe(t_pipe *data, char *argv[]);
+void	creating_pipes(char *argv[], t_pipe *data);
 void	creating_sending_child(char *argv[], t_pipe *data, int err);
 void	creating_receiving_child(char *argv[], t_pipe *data, int err);
 void	sending_process(t_pipe *data, char *argv[], char *envp[]);
@@ -63,14 +64,15 @@ void	receiving_process(t_pipe *data, char *argv[], char *envp[]);
 
 /* utils */
 void	matching_commands_with_right_path(t_pipe *data, char *argv[], int pos);
-void	switching_input_output(t_pipe *data, char c);
+void	switching_input_output(t_pipe *data, char flag);
 void	executing_command(t_pipe *data, char *envp[], char *argv[]);
 
 /* error management */
 void	error_manager(int error, char *argv[], t_pipe *data);
+void	check_error(int argc);
 
 /* memory stuff */
-void	closing_input_output(t_pipe *data, char c);
+void	closing_input_output(t_pipe *data, char flag);
 void	waiting_childs_finishing(t_pipe *data);
 void	free_path_dir(t_pipe *data);
 void	free_commands(t_pipe *data);

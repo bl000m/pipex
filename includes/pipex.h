@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/10 17:31:08 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 14:45:13 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	receiving_process(t_pipe *data, char *argv[], char *envp[]);
 
 /* utils */
 void	matching_commands_with_right_path(t_pipe *data, char *argv[], int pos);
-void	switching_input_output(t_pipe *data, char c);
+void	switching_input_output(t_pipe *data, char *flag);
 void	executing_command(t_pipe *data, char *envp[], char *argv[]);
 
 /* error management */
@@ -65,7 +65,7 @@ void	error_manager(int error, char *argv[], t_pipe *data);
 void	check_error(int argc);
 
 /* memory stuff */
-void	closing_input_output(t_pipe *data, char c);
+void	closing_input_output(t_pipe *data, char *flag);
 void	waiting_childs_finishing(t_pipe *data);
 void	free_path_dir(t_pipe *data);
 void	free_commands(t_pipe *data);
