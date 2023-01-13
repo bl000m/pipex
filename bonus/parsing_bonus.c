@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:54:22 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/12 12:08:26 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 13:31:32 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	opening_files(t_pipe *data, char *argv[], char flag)
 {
 	if (flag == 'h')
 	{
-		data->file_out = open(argv[4], O_CREAT| O_RDWR | O_APPEND | O_CLOEXEC, 0000644);
+		data->file_out = open(argv[data->argc - 1], O_CREAT| O_RDWR | O_CLOEXEC | O_TRUNC, 0000644);
 		if (data->file_out == -1 || read(data->file_out, 0, 0) < 0)
 			error_manager(5, argv, data);
 	}

@@ -6,7 +6,7 @@
 #    By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 14:44:01 by mpagani           #+#    #+#              #
-#    Updated: 2023/01/12 15:14:41 by mpagani          ###   ########lyon.fr    #
+#    Updated: 2023/01/13 12:03:41 by mpagani          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,7 @@ BONUS_SRCS	= main_bonus.c \
 			communicating_bonus.c \
 			settings_bonus.c \
 			error_management_bonus.c \
-			utils_bonus.c here_doc.c \
-			utils_process_bonus.c
+			utils_bonus.c here_doc.c
 
 OBJS_BONUS	= $(BONUS_SRCS:%.c=$(OBJ_BON_DIR)/%.o)
 

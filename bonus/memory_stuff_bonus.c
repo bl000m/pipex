@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:03:25 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/13 11:53:35 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 12:16:32 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ void	closing_input_output(t_pipe *data)
 	close(data->pipe[0]);
 	close(data->pipe[1]);
 }
-
-// void	waiting_childs_finishing(t_pipe *data)
-// {
-// 	waitpid(data->sending_child, NULL, 0);
-// 	waitpid(data->receiving_child, NULL, 0);
-// }
 
 void	free_path_dir(t_pipe *data)
 {
