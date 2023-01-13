@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/12 17:40:54 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 11:47:46 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ typedef struct s_pipe
 	char	**path_dir;
 	char	**commands;
 	char	*dir_command;
-	pid_t	sending_child;
-	pid_t	receiving_child;
+	pid_t	child;
 	pid_t	here_doc_child;
 	int		pipe[2];
-	int		*pipes[];
+	// int		*pipes[];
 }	t_pipe;
 
 /* settings */
@@ -57,8 +56,8 @@ void	getting_and_sending_input(char *limiter, t_pipe *data);
 void	communicating(t_pipe *data, char *argv[], char *envp[]);
 void	creating_pipe(t_pipe *data, char *argv[]);
 void	creating_pipes(char *argv[], t_pipe *data);
-void	creating_sending_child(char *argv[], t_pipe *data, int err);
-void	creating_receiving_child(char *argv[], t_pipe *data, int err);
+void	creating_child(char *argv[], t_pipe *data, int err);
+// void	creating_receiving_child(char *argv[], t_pipe *data, int err);
 void	sending_process(t_pipe *data, char *argv[], char *envp[]);
 void	receiving_process(t_pipe *data, char *argv[], char *envp[]);
 
@@ -72,7 +71,7 @@ void	error_manager(int error, char *argv[], t_pipe *data);
 void	check_error(int argc);
 
 /* memory stuff */
-void	closing_input_output(t_pipe *data, char flag);
+void	closing_input_output(t_pipe *data);
 void	waiting_childs_finishing(t_pipe *data);
 void	free_path_dir(t_pipe *data);
 void	free_commands(t_pipe *data);

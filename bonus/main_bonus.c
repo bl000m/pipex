@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:36:33 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/12 13:18:41 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 11:54:57 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[], char *envp[])
 		ft_printf("I'm in here_doc case\n");
 		data->pos = 3;
 		data->n_cmd = 2;
-		here_doc(argc, argv, data);
+		// here_doc(argc, argv, data);
 		opening_files(data, argv, 'h');
 	}
 	else
@@ -32,6 +32,8 @@ int main(int argc, char *argv[], char *envp[])
 		data->pos = 2;
 		data->n_cmd = argc - 3;
 		opening_files(data, argv, 's');
+		if (dup2(data->file_in, STDIN_FILENO) < 0)
+			ft_printf("ERROR in switching fd in receiving\n");
 	}
 	parsing_environment(data, envp, argv);
 	communicating(data, argv, envp);

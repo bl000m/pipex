@@ -6,48 +6,24 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:03:25 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/12 17:32:27 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 11:53:35 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
 // s == sending || r == receiving || p == parent
-void	closing_input_output(t_pipe *data, char flag)
+void	closing_input_output(t_pipe *data)
 {
-	// if (flag == 'h')
-	// {
-		close(data->pipe[0]);
-		close(data->pipe[1]);
-	// }
-	// else if (flag == 's')
-	// {
-	// 	close(data->pipes[data->i][0]);
-	// 	close(data->pipes[data->i][1]);
-	// }
-	// else if (flag == 'm' || flag == 'n')
-	// {
-	// 	close(data->pipes[data->i - 1][0]);
-	// 	close(data->pipes[data->i][1]);
-	// }
-	// else if (flag == 'r' || flag == 'p')
-	// {
-	// 	close(data->pipes[data->i - 1][0]);
-	// 	close(data->pipes[data->i - 1][1]);
-		// close(data->pipes[data->i][1]);
-		// close(data->pipes[data->i][0]);
-	// }
-	if (flag == 's' || flag == 'p')
-		close(data->file_in);
-	if (flag == 'r' || flag == 'p')
-		close(data->file_out);
+	close(data->pipe[0]);
+	close(data->pipe[1]);
 }
 
-void	waiting_childs_finishing(t_pipe *data)
-{
-	waitpid(data->sending_child, NULL, 0);
-	waitpid(data->receiving_child, NULL, 0);
-}
+// void	waiting_childs_finishing(t_pipe *data)
+// {
+// 	waitpid(data->sending_child, NULL, 0);
+// 	waitpid(data->receiving_child, NULL, 0);
+// }
 
 void	free_path_dir(t_pipe *data)
 {
