@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/13 11:47:46 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/14 18:24:17 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct s_pipe
 	char	**commands;
 	char	*dir_command;
 	pid_t	child;
-	pid_t	here_doc_child;
 	int		pipe[2];
+	int		here_doc;
 	// int		*pipes[];
 }	t_pipe;
 
@@ -49,8 +49,13 @@ void	opening_files(t_pipe *data, char *argv[], char flag);
 void	parsing_environment(t_pipe *data, char *envp[], char *argv[]);
 char	*searching_path(char *envp[]);
 char	*find_dir_command(t_pipe *data);
+
+/* Bonus features */
+int		checking_here_doc(int argc, char *argv[], t_pipe *data);
 void	here_doc(int argc, char *argv[], t_pipe *data);
-void	getting_and_sending_input(char *limiter, t_pipe *data);
+void	child_getting_and_writing_input_on_pipe(char *limiter, t_pipe *data);
+void	parent_switching_stdin_with_pipe(t_pipe *data);
+void	multiple_pipes_handling(int argc, char *argv[], t_pipe *data);
 
 /* communicating */
 void	communicating(t_pipe *data, char *argv[], char *envp[]);
@@ -76,5 +81,6 @@ void	waiting_childs_finishing(t_pipe *data);
 void	free_path_dir(t_pipe *data);
 void	free_commands(t_pipe *data);
 void	exit_clean(t_pipe *data, char c);
+void	free_char2(char **ptr);
 
 #endif
