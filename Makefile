@@ -6,11 +6,12 @@
 #    By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 14:44:01 by mpagani           #+#    #+#              #
-#    Updated: 2023/01/13 12:03:41 by mpagani          ###   ########lyon.fr    #
+#    Updated: 2023/01/14 15:43:44 by mpagani          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= pipex
+# NAME_BONUS 		= pipex_bonus
 
 # mandatory srcs / obj files
 SRCS 		= main.c \
@@ -40,7 +41,7 @@ CFLAGS 		= -Wall -Werror -Wextra
 
 # directories
 SRCS_DIR	= ./srcs
-BONUS_DIR	= ./bonus
+BONUS_DIR	= ./srcs_bonus
 INCS_DIR	= ./includes
 OBJDIR 		= ./obj
 OBJ_BON_DIR = ./obj_bonus
@@ -65,13 +66,15 @@ $(NAME): $(OBJS)
 $(OBJDIR)/%.o: $(SRCS_DIR)/%.c Makefile $(INCS_DIR)/pipex.h
 	$(CC) $(CFLAGS) $(LIBFT_INC) -I $(INCS_DIR) -c $< -o $@
 
-bonus: obj_bonus $(LIBFT) $(OBJS_BONUS)
-	$(CC) $(OBJS_BONUS) $(LIBFT_LNK) -lm -o $(NAME)
+bonus: $(NAME)_bonus
+
+$(NAME)_bonus: $(OBJ_BON_DIR) $(LIBFT) $(OBJS_BONUS)
+	$(CC) $(OBJS_BONUS) $(LIBFT_LNK) -lm -o $@
 
 $(OBJ_BON_DIR)/%.o: $(BONUS_DIR)/%.c Makefile $(INCS_DIR)/pipex_bonus.h
 	$(CC) $(CFLAGS) $(LIBFT_INC) -I $(INCS_DIR) -c $< -o $@
 
-obj_bonus:
+$(OBJ_BON_DIR):
 	mkdir -p $(OBJ_BON_DIR)
 
 $(LIBFT):
