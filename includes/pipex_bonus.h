@@ -64,7 +64,7 @@ void	creating_pipe(t_pipe *data, char *argv[]);
 void	creating_pipes(char *argv[], t_pipe *data);
 void	creating_child(char *argv[], t_pipe *data, int err);
 // void	creating_receiving_child(char *argv[], t_pipe *data, int err);
-void	sending_process(t_pipe *data, char *argv[], char *envp[]);
+void	child_process(t_pipe *data, char *argv[], char *envp[]);
 void	receiving_process(t_pipe *data, char *argv[], char *envp[]);
 
 /* utils */

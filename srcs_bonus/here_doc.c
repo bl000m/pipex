@@ -14,16 +14,23 @@
 
 void	here_doc(int argc, char *argv[], t_pipe *data)
 {
-	int		limiter_size;
-	char	*input;
 
   if (argc != 6)
 		exit(1);
 	creating_pipe(data, argv);
 	creating_child(argv, data, 2);
 	if (data->child == 0)
-  {
-    limiter_size = ft_strlen(argv[2]);
+    child_getting_and_writing_input_on_pipe(argv[2], data);
+	else
+		parent_switching_stdin_with_pipe(data);
+}
+
+void	child_getting_and_writing_input_on_pipe(char *limiter, t_pipe *data)
+	{
+    int		limiter_size;
+	  char	*input;
+
+    limiter_size = ft_strlen(limiter);
     while (1)
     {
       ft_printf("pipex here_doc> ");
@@ -33,8 +40,8 @@ void	here_doc(int argc, char *argv[], t_pipe *data)
         closing_input_output(data);
         exit(1);
       }
-      if (input[limiter_size] == '\n' && argv[2]
-        && (ft_strncmp(input, argv[2], limiter_size) == 0))
+      if (input[limiter_size] == '\n' && limiter
+        && (ft_strncmp(input, limiter, limiter_size) == 0))
       {
         closing_input_output(data);
         close(data->file);
@@ -46,25 +53,11 @@ void	here_doc(int argc, char *argv[], t_pipe *data)
     }
     free(input);
   }
-		// child_getting_and_writing_input_on_pipe(argv[2], data);
-	else
-  {
+
+void	parent_switching_stdin_with_pipe(t_pipe *data)
+{
     if (dup2(data->pipe[0], STDIN_FILENO) < 0)
       ft_printf("ERROR in switching fd in receiving\n");
 	  closing_input_output(data);
   	waitpid(data->child, NULL, 0);
-  }
-		// parent_switching_stdin_with_pipe(data);
 }
-
-// void	child_getting_and_writing_input_on_pipe(char *limiter, t_pipe *data)
-// {
-
-// }
-
-// void	parent_switching_stdin_with_pipe(t_pipe *data)
-// {
-  // data->file = open("WTF", O_RDONLY);
-  //   if (data->file_in < 0)
-  //     ft_printf("error in opening file_in\n");
-// }
