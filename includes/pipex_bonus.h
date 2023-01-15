@@ -29,6 +29,7 @@ typedef struct s_pipe
 	int		argc;
 	int		n_cmd;
 	int		pos;
+  int   file;
 	int		file_in;
 	int		file_out;
 	char	*path;

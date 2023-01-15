@@ -22,6 +22,7 @@ int main(int argc, char *argv[], char *envp[])
 	parsing_environment(data, envp, argv);
 	if (!checking_here_doc(argc, argv, data))
 		multiple_pipes_handling(argc, argv, data);
+  ft_printf("wtf ??\n");
 	communicating(data, argv, envp);
 	// while (1)
 	// 	i = 0;
