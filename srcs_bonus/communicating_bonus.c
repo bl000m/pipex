@@ -22,20 +22,7 @@ void	communicating(t_pipe *data, char *argv[], char *envp[])
 		creating_child(argv, data, 2);
 		if (data->child == 0)
 			sending_process(data, argv, envp);
-		// if (data->here_doc == 0 || (data->here_doc == 1 && data->pos >= 4))
-		// {
-		// 	ft_printf("YES\n");
-			// if (dup2(data->pipe[0], STDIN_FILENO) < 0)
-			// 	ft_printf("ERROR in switching fd in parent\n");
-		// }
-    // else if (data->here_doc == 1)
-    // {
-		// 	ft_printf("data->here_doc == 1 && data->pos < 4\n");
-		//   if (dup2(data->file, STDIN_FILENO) < 0)
-		// 	  ft_printf("ERROR in switching WTF\n");
-    // }
 		closing_input_output(data);
-		// waitpid(data->child, NULL, 0);
 		data->pos++;
 	}
 	exit_clean(data, 'p');
@@ -43,7 +30,6 @@ void	communicating(t_pipe *data, char *argv[], char *envp[])
   close(data->file_in);
 	close(data->file_out);
 	waitpid(data->child, NULL, WNOHANG);
-	// waitpid(data->child, NULL, 0);
 }
 
 void	sending_process(t_pipe *data, char *argv[], char *envp[])
@@ -62,7 +48,6 @@ void	sending_process(t_pipe *data, char *argv[], char *envp[])
 	{
 		if (dup2(data->pipe[1], STDOUT_FILENO) < 0)
 			ft_printf("ERROR in switching fd in sending_process\n");
-		close(data->file_in);
 	}
 	closing_input_output(data);
 	matching_commands_with_right_path(data, argv, data->pos);

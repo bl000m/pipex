@@ -23,7 +23,6 @@ void	here_doc(int argc, char *argv[], t_pipe *data)
 	creating_child(argv, data, 2);
 	if (data->child == 0)
   {
-    // data->file = open("wtf", O_CREAT| O_RDWR | O_APPEND, 0644);
     limiter_size = ft_strlen(argv[2]);
     while (1)
     {
