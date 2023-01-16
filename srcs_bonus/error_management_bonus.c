@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:55:27 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/11 11:16:46 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/16 16:29:53 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	error_manager(int error, char *argv[], t_pipe *data)
 		if (data->file_in)
 			close(data->file_in);
 		ft_printf("OUTPUT ERROR: %s => %s\n",
-		strerror(errno), argv[data->argc - 1]);
+			strerror(errno), argv[data->argc - 1]);
 	}
+	else if (error == 6)
+		ft_printf("ERROR in switching fd: %s\n", strerror(errno));
 	exit(1);
 }

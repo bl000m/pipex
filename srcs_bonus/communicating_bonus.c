@@ -6,13 +6,12 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 11:13:53 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/14 18:30:41 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/16 17:59:47 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-// parent can't exec otherwise sleep 1 and 1 = 2
 void	communicating(t_pipe *data, char *argv[], char *envp[])
 {
 	while (data->pos <= data->argc - 2)
@@ -24,15 +23,19 @@ void	communicating(t_pipe *data, char *argv[], char *envp[])
 		closing_input_output(data);
 		data->pos++;
 	}
-	exit_clean(data, 'p');
 	closing_input_output(data);
-  close(data->file_in);
+	close(data->file_in);
 	close(data->file_out);
-	waitpid(data->child, NULL, WNOHANG);
+	exit_clean(data, 'p');
+	while (waitpid(-1, NULL, 0) > 0)
+		;
+
 }
 
 void	child_process(t_pipe *data, char *argv[], char *envp[])
 {
+
+	ft_printf("pos = %d\n", data->pos);
 	if (data->file_in < 0)
 	{
 		closing_input_output(data);
@@ -41,14 +44,17 @@ void	child_process(t_pipe *data, char *argv[], char *envp[])
 	if (data->pos == data->argc - 2)
 	{
 		if (dup2(data->file_out, STDOUT_FILENO) < 0)
-			ft_printf("ERROR in switching fd in child_process\n");
+			error_manager(6, argv, data);
 	}
 	else
 	{
-		if (dup2(data->pipe[1], STDOUT_FILENO) < 0)
-			ft_printf("ERROR in switching fd in child_process\n");
+		if (dup2(data->pipe[0], STDIN_FILENO) < 0)
+			error_manager(6, argv, data);
 	}
 	closing_input_output(data);
-	matching_commands_with_right_path(data, argv, data->pos);
-	executing_command(data, envp, argv);
+	if (data->file_in != 0)
+	{
+		matching_commands_with_right_path(data, argv, data->pos);
+		executing_command(data, envp, argv);
+	}
 }

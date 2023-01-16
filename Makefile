@@ -6,7 +6,7 @@
 #    By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 14:44:01 by mpagani           #+#    #+#              #
-#    Updated: 2023/01/14 15:43:44 by mpagani          ###   ########lyon.fr    #
+#    Updated: 2023/01/16 17:45:11 by mpagani          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ BONUS_SRCS	= main_bonus.c \
 OBJS_BONUS	= $(BONUS_SRCS:%.c=$(OBJ_BON_DIR)/%.o)
 
 # compile
-CC 			= cc
+CC 			= cc #-fsanitize=address -g3
 CFLAGS 		= -Wall -Werror -Wextra
 
 # directories
@@ -92,3 +92,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean bonus re
+
