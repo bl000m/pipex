@@ -14,7 +14,8 @@
 
 void	here_doc(int argc, char *argv[], t_pipe *data)
 {
-	if (argc != 6)
+
+  if (argc != 6)
 		exit(1);
 	getting_and_writing_input_on_file(argv[2]);
 	data->file_in = open(".here_doc", O_RDONLY);

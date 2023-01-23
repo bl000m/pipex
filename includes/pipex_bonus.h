@@ -50,10 +50,10 @@ char	*searching_path(char *envp[]);
 char	*find_dir_command(t_pipe *data);
 
 /* Bonus features */
-int		checking_here_doc(int argc, char *argv[], t_pipe *data);
+void	checking_here_doc(int argc, char *argv[], t_pipe *data);
 void	here_doc(int argc, char *argv[], t_pipe *data);
 void	getting_and_writing_input_on_file(char *limiter);
-void	multiple_pipes_handling(int argc, char *argv[], t_pipe *data);
+void	multiple_commands_handling(int argc, char *argv[], t_pipe *data);
 
 /* communicating */
 void	communicating(t_pipe *data, char *argv[], char *envp[]);
