@@ -6,30 +6,11 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:54:22 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/16 17:19:52 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 11:22:18 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
-
-void	opening_files(t_pipe *data, char *argv[], char flag)
-{
-	if (flag == 'h')
-	{
-		data->file_out = open(argv[data->argc - 1], O_CREAT| O_WRONLY | O_APPEND, 0644);
-		if (data->file_out == -1)
-			error_manager(5, data);
-	}
-	else if (flag == 's')
-	{
-		data->file_in = open(argv[1], O_RDONLY);
-		if (data->file_in == -1)
-			error_manager(7, data);
-		data->file_out = open(argv[data->argc - 1], O_CREAT| O_WRONLY | O_TRUNC, 0644);
-		if (data->file_out == -1)
-			error_manager(5, data);
-	}
-}
 
 void	parsing_environment(t_pipe *data, char *envp[])
 {

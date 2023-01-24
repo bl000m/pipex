@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:40:13 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/16 17:22:32 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 14:30:58 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 void	here_doc(int argc, char *argv[], t_pipe *data)
 {
+	int		fd;
 
-  if (argc != 6)
+	if (argc != 6)
+	{
+		exit_clean(data);
 		exit(1);
-	getting_and_writing_input_on_file(argv[2]);
+	}
+	fd = open(".here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd < 0)
+		error_manager(6, data);
+	getting_and_writing_input_on_file(argv[2], fd);
 	data->file_in = open(".here_doc", O_RDONLY);
 	if (data->file_in < 0)
 		error_manager(6, data);
-	if (dup2(data->file_in, STDIN_FILENO) < 0)
-		error_manager(6, data);
+	switching_input_output(data, 's');
+	close(data->file_in);
 }
 
-void	getting_and_writing_input_on_file(char *limiter)
+void	getting_and_writing_input_on_file(char *limiter, int fd)
 {
-	int		limiter_size;
 	char	*input;
-	int		fd;
 
-	fd = open(".here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
-	limiter_size = ft_strlen(limiter);
 	while (1)
 	{
 		ft_printf("pipex here_doc> ");
@@ -42,8 +45,8 @@ void	getting_and_writing_input_on_file(char *limiter)
 			close(fd);
 			exit(1);
 		}
-		if (input[limiter_size] == '\n' && limiter
-			&& (ft_strncmp(input, limiter, limiter_size) == 0))
+		if (input[ft_strlen(limiter)] == '\n' && limiter
+			&& (ft_strncmp(input, limiter, ft_strlen(limiter)) == 0))
 		{
 			close(fd);
 			break ;

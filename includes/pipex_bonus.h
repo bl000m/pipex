@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/16 17:15:13 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 14:29:29 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include "errno.h"
 # include "string.h"
 
-# define PROCESS_N 2
-
 typedef struct s_pipe
 {
 	int		argc;
@@ -37,7 +35,6 @@ typedef struct s_pipe
 	char	*dir_command;
 	pid_t	child;
 	int		pipe[2];
-	int		here_doc;
 }	t_pipe;
 
 /* settings */
@@ -50,19 +47,16 @@ char	*searching_path(char *envp[]);
 char	*find_dir_command(t_pipe *data);
 
 /* Bonus features */
-void	checking_here_doc(int argc, char *argv[], t_pipe *data);
+int		checking_here_doc(int argc, char *argv[], t_pipe *data);
 void	here_doc(int argc, char *argv[], t_pipe *data);
-void	getting_and_writing_input_on_file(char *limiter);
+void	getting_and_writing_input_on_file(char *limiter, int fd);
 void	multiple_commands_handling(int argc, char *argv[], t_pipe *data);
 
 /* communicating */
 void	communicating(t_pipe *data, char *argv[], char *envp[]);
 void	creating_pipe(t_pipe *data);
-void	creating_pipes(char *argv[], t_pipe *data);
 void	creating_child(t_pipe *data, int err);
-// void	creating_receiving_child(char *argv[], t_pipe *data, int err);
 void	child_process(t_pipe *data, char *argv[], char *envp[]);
-void	receiving_process(t_pipe *data, char *argv[], char *envp[]);
 
 /* utils */
 void	matching_commands_with_right_path(t_pipe *data, char *argv[], int pos);
@@ -78,7 +72,6 @@ void	closing_input_output(t_pipe *data);
 void	waiting_childs_finishing(t_pipe *data);
 void	free_path_dir(t_pipe *data);
 void	free_commands(t_pipe *data);
-void	exit_clean(t_pipe *data, char c);
-void	free_char2(char **ptr);
+void	exit_clean(t_pipe *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 11:37:55 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/13 10:50:24 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 14:43:08 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_pipe
 	char	*dir_command;
 	pid_t	sending_child;
 	pid_t	receiving_child;
+	int		pos;
 	int		pipe[2];
 }	t_pipe;
 
@@ -52,8 +53,7 @@ void	communicating(t_pipe *data, char *argv[], char *envp[]);
 void	creating_pipe(t_pipe *data);
 void	creating_sending_child(t_pipe *data, int err);
 void	creating_receiving_child(t_pipe *data, int err);
-void	sending_process(t_pipe *data, char *argv[], char *envp[]);
-void	receiving_process(t_pipe *data, char *argv[], char *envp[]);
+void	child_process(t_pipe *data, char *argv[], char *envp[], char flag);
 
 /* utils */
 void	matching_commands_with_right_path(t_pipe *data, char *argv[], int pos);
@@ -61,14 +61,14 @@ void	switching_input_output(t_pipe *data, char c);
 void	executing_command(t_pipe *data, char *envp[]);
 
 /* error management */
-void	error_manager(int error, t_pipe *data);
 void	check_error(int argc);
+void	error_manager(int error, t_pipe *data);
 
 /* memory stuff */
-void	closing_input_output(t_pipe *data, char c);
+void	closing_input_output(t_pipe *data);
 void	waiting_childs_finishing(t_pipe *data);
 void	free_path_dir(t_pipe *data);
 void	free_commands(t_pipe *data);
-void	exit_clean(t_pipe *data, char c);
+void	exit_clean(t_pipe *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:03:25 by mpagani           #+#    #+#             */
-/*   Updated: 2023/01/16 11:42:30 by mpagani          ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 14:46:20 by mpagani          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,17 @@ void	free_commands(t_pipe *data)
 	}
 }
 
-//TO BE CHECKED if char *dir_command and char *path need to be NULL pointed
-//f == fail | c == child | p == parent
-void	exit_clean(t_pipe *data, char c)
+void	exit_clean(t_pipe *data)
 {
-	if (c == 'f' || c == 'c')
-		free_commands(data);
-	if (c == 'f' || c == 'p')
-		free(data);
-		// free_path_dir(data);
-	// if (data->dir_command)
-	// 	free(data->dir_command);
-	// if (data->path)
-	// 	free(data->path);
+	free_commands(data);
+	free_path_dir(data);
+	if (data->pipe[0])
+		close(data->pipe[0]);
+	if (data->pipe[1])
+		close(data->pipe[1]);
+	if (data->file_in)
+		close(data->file_in);
+	if (data->file_out)
+		close(data->file_out);
+	free(data);
 }
-

@@ -6,18 +6,16 @@
 #    By: mpagani <mpagani@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 14:44:01 by mpagani           #+#    #+#              #
-#    Updated: 2023/01/16 17:45:11 by mpagani          ###   ########lyon.fr    #
+#    Updated: 2023/01/24 15:29:58 by mpagani          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= pipex
-# NAME_BONUS 		= pipex_bonus
 
 # mandatory srcs / obj files
 SRCS 		= main.c \
 			memory_stuff.c \
 			parsing.c \
-			communicating.c \
 			settings.c \
 			error_management.c \
 			utils.c
@@ -36,7 +34,7 @@ BONUS_SRCS	= main_bonus.c \
 OBJS_BONUS	= $(BONUS_SRCS:%.c=$(OBJ_BON_DIR)/%.o)
 
 # compile
-CC 			= cc -fsanitize=address -g3
+CC 			= cc
 CFLAGS 		= -Wall -Werror -Wextra
 
 # directories
@@ -88,6 +86,7 @@ clean:
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
+	$(RM) $(NAME)_bonus
 
 re: fclean all
 
