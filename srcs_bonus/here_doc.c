@@ -20,9 +20,9 @@ void	here_doc(int argc, char *argv[], t_pipe *data)
 	getting_and_writing_input_on_file(argv[2]);
 	data->file_in = open(".here_doc", O_RDONLY);
 	if (data->file_in < 0)
-		error_manager(6, NULL, data);
+		error_manager(6, data);
 	if (dup2(data->file_in, STDIN_FILENO) < 0)
-		error_manager(6, NULL, data);
+		error_manager(6, data);
 }
 
 void	getting_and_writing_input_on_file(char *limiter)

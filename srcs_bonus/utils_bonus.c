@@ -31,21 +31,21 @@ void	switching_input_output(t_pipe *data, char c)
 	}
 }
 
-void	executing_command(t_pipe *data, char *envp[], char *argv[])
+void	executing_command(t_pipe *data, char *envp[])
 {
 	if (execve(data->dir_command, data->commands, envp) == -1)
-		error_manager(3, argv, data);
+		error_manager(3, data);
 }
 
-void	creating_pipe(t_pipe *data, char *argv[])
+void	creating_pipe(t_pipe *data)
 {
 	if (pipe(data->pipe) == -1)
-		error_manager(1, argv, data);
+		error_manager(1, data);
 }
 
-void	creating_child(char *argv[], t_pipe *data, int err)
+void	creating_child(t_pipe *data, int err)
 {
 	data->child = fork();
 	if (data->child == -1)
-		error_manager(err, argv, data);
+		error_manager(err, data);
 }

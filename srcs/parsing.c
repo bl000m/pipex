@@ -17,20 +17,17 @@ void	opening_files(t_pipe *data, char *argv[])
 {
 	data->file_in = open(argv[1], O_RDONLY);
 	if (data->file_in == -1 || read(data->file_in, 0, 0) < 0)
-	{
-		ft_printf("INPUT ERROR: %s => %s\n", strerror(errno), argv[1]);
-		data->file_in = 0;
-	}
+		error_manager(5, data);
 	data->file_out = open(argv[4], O_CREAT| O_RDWR | O_TRUNC, 0000644);
 	if (data->file_out == -1 || read(data->file_out, 0, 0) < 0)
-		error_manager(5, argv, data);
+		error_manager(6, data);
 }
 
-void	parsing_environment(t_pipe *data, char *envp[], char *argv[])
+void	parsing_environment(t_pipe *data, char *envp[])
 {
 	data->path = searching_path(envp);
 	if (!data->path)
-		error_manager(4, argv, data);
+		error_manager(4, data);
 	else
 		data->path_dir = ft_split(data->path, ':');
 }
@@ -75,5 +72,5 @@ void	matching_commands_with_right_path(t_pipe *data, char *argv[], int pos)
 	data->commands = ft_split(argv[pos], ' ');
 	data->dir_command = find_dir_command(data);
 	if (!data->dir_command)
-		error_manager(3, argv, data);
+		error_manager(3, data);
 }

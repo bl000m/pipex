@@ -36,7 +36,7 @@ BONUS_SRCS	= main_bonus.c \
 OBJS_BONUS	= $(BONUS_SRCS:%.c=$(OBJ_BON_DIR)/%.o)
 
 # compile
-CC 			= cc #-fsanitize=address -g3
+CC 			= cc -fsanitize=address -g3
 CFLAGS 		= -Wall -Werror -Wextra
 
 # directories
@@ -92,4 +92,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean bonus re
-

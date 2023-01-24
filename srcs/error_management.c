@@ -21,7 +21,7 @@ void	check_error(int argc)
 	}
 }
 
-void	error_manager(int error, char *argv[], t_pipe *data)
+void	error_manager(int error, t_pipe *data)
 {
 	if (error == 1)
 		ft_printf("ERROR CREATING PIPE: %s\n", strerror(errno));
@@ -29,8 +29,8 @@ void	error_manager(int error, char *argv[], t_pipe *data)
 		ft_printf("ERROR CREATING SENDING PROCESS: %s\n", strerror(errno));
 	else if (error == 3)
 	{
-		ft_printf("command or directory path's command not found: %s, %s\n",
-			argv[2], strerror(errno));
+		ft_printf("command or directory path's command not found: %s\n",
+		  strerror(errno));
 		exit_clean(data, 'f');
 	}
 	else if (error == 4)
@@ -39,8 +39,15 @@ void	error_manager(int error, char *argv[], t_pipe *data)
 	{
 		if (data->file_in)
 			close(data->file_in);
-		ft_printf("OUTPUT ERROR: %s => %s\n",
-			strerror(errno), argv[data->argc - 1]);
+		ft_printf("INPUT ERROR: %s\n",
+			strerror(errno));
+	}
+	else if (error == 6)
+	{
+		if (data->file_in)
+			close(data->file_in);
+		ft_printf("OUTPUT ERROR: %s\n",
+			strerror(errno));
 	}
 	else if (error == 7)
 		ft_printf("ERROR CREATING RECEIVING PROCESS: %s\n", strerror(errno));

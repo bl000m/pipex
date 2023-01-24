@@ -18,7 +18,7 @@ int main(int argc, char *argv[], char *envp[])
 
 	check_error(argc);
 	data = init_data(argc);
-	parsing_environment(data, envp, argv);
+	parsing_environment(data, envp);
   if (argv[1] && (ft_strncmp(argv[1], "here_doc", 8) == 0)
 		&& argv[1][8] == '\0')
     checking_here_doc(argc, argv, data);
@@ -51,5 +51,5 @@ void	multiple_commands_handling(int argc, char *argv[], t_pipe *data)
 	data->here_doc = 0;
 	opening_files(data, argv, 's');
 	if (dup2(data->file_in, STDIN_FILENO) < 0)
-		error_manager(6, argv, data);
+		error_manager(6, data);
 }

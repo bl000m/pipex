@@ -14,11 +14,11 @@
 
 void	communicating(t_pipe *data, char *argv[], char *envp[])
 {
-	creating_pipe(data, argv);
-	creating_sending_child(argv, data, 2);
+	creating_pipe(data);
+	creating_sending_child(data, 2);
 	if (data->sending_child == 0)
 		sending_process(data, argv, envp);
-	creating_receiving_child(argv, data, 7);
+	creating_receiving_child(data, 7);
 	if (data->receiving_child == 0)
 		receiving_process(data, argv, envp);
 	closing_input_output(data, 'p');
@@ -28,19 +28,16 @@ void	communicating(t_pipe *data, char *argv[], char *envp[])
 
 void	sending_process(t_pipe *data, char *argv[], char *envp[])
 {
+	matching_commands_with_right_path(data, argv, 2);
 	switching_input_output(data, 's');
 	closing_input_output(data, 's');
-	if (data->file_in != 0)
-	{
-		matching_commands_with_right_path(data, argv, 2);
-		executing_command(data, envp, argv);
-	}
+	executing_command(data, envp);
 }
 
 void	receiving_process(t_pipe *data, char *argv[], char *envp[])
 {
+	matching_commands_with_right_path(data, argv, 3);
 	switching_input_output(data, 'r');
 	closing_input_output(data, 'r');
-	matching_commands_with_right_path(data, argv, 3);
-	executing_command(data, envp, argv);
+	executing_command(data, envp);
 }

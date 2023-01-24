@@ -19,6 +19,6 @@ int main(int argc, char *argv[], char *envp[])
 	check_error(argc);
 	data = init_data(argc);
 	opening_files(data, argv);
-	parsing_environment(data, envp, argv);
+	parsing_environment(data, envp);
 	communicating(data, argv, envp);
 }
