@@ -7,6 +7,7 @@
 The program will be executed as follows:
 ```
 ./pipex file1 cmd1 cmd2 file2
+```
 
 It must take 4 arguments:
 
@@ -18,6 +19,7 @@ It must behave exactly the same as the shell command below:
 
 ```
 $> < file1 cmd1 | cmd2 > file2
+```
 
 # Bonus part - Rules
 
