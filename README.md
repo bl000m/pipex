@@ -24,3 +24,25 @@ $> < file1 cmd1 | cmd2 > file2
 # Bonus part - Rules
 
 => Handle multiple pipes
+
+This:
+```
+$> ./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2
+```
+
+Should behave like:
+```
+cmd << LIMITER | cmd1 >> file
+```
+
+=> Support « and » when the first parameter is "here_doc".
+
+This:
+```
+$> ./pipex here_doc LIMITER cmd cmd1 file
+```
+
+Should behave like:
+```
+cmd << LIMITER | cmd1 >> file
+```
