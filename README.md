@@ -1,6 +1,6 @@
 # pipex - 42 school project - validated 125/100
 
-=> If you are a 42 student visiting this page to get some inspiration please leave your inspiration being free not to copy/paste the code but catching logics behind that.
+=> If you are a 42 student visiting this page to get some inspiration please leave your inspiration being free not to copy/paste the code but rather catching logics behind and playing with that.
 
 # Mandatory part - Rules
 
