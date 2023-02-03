@@ -34,7 +34,7 @@ BONUS_SRCS	= main_bonus.c \
 OBJS_BONUS	= $(BONUS_SRCS:%.c=$(OBJ_BON_DIR)/%.o)
 
 # compile
-CC 			= cc
+CC 			= cc -ggdb3 #-fsanitize=address -g3
 CFLAGS 		= -Wall -Werror -Wextra
 
 # directories
